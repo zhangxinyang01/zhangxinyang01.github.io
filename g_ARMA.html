@@ -1,0 +1,435 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<!--
+<script type="text/javascript" 
+	src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=AM_HTMLorMML-full">
+</script>
+
+<script type="text/javascript"
+	src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+-->
+
+<script type="text/x-mathjax-config">  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<head>
+	<title>Generic - Editorial by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+				<!-- Header -->
+				<header id="header">
+					<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands fa-snapchat-ghost"><span class="label">Snapchat</span></a>
+						</li>
+						<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon brands fa-medium-m"><span class="label">Medium</span></a></li>
+					</ul>
+				</header>
+
+				<!-- Content -->
+				<section>
+					<header class="main">
+						<h1>时间序列预测模型之ARMA</h1>
+					</header>
+
+					<span class="image main"><img src="images/pic11.jpg" alt="" /></span>
+
+					<p><b>严平稳定义：</b>任意给定一组时点$\{t_1,t_2,\cdots,t_k\}$和这族时点的任意h的平移时点$\{t_1+h,t_2+h,\cdots,t_k+h\}$，形成两组部分序列$\{X_{t_1},X_{t_2},\cdots,X_{t_k}\}$和$\{X_{t_1+h},X_{t_2+h},\cdots,X_{t_k+h}\}$，都有
+						\[
+						P\{X_{t_1}&ltc_1,X_{t_2}&ltc_2,\cdots,X_{t_k}&ltc_k\}=P\{X_{t_1+h}&ltc_1,X_{t_2+h}&ltc_2,\cdots,X_{t_k+h}&ltc_k\}
+						\]
+						则称此时间序列是严平稳的(Strickly Stationary)。
+						\[
+						\rho(h)=\frac{\gamma(t+h,t)}{\sqrt{Var(X_{t+h})Var(X_t)}}=\frac{\gamma(h)}{\gamma(0)}
+						\]
+						\begin{gathered}
+						\begin{array}{ccc}
+						1.5385 & 0 & 0\\
+						0.4487 & 2.5000 & 0.8333\\
+						0.9829 & 1.6667 & 2.7778
+						\end{array}
+						\quad
+						\begin{pmatrix}
+						1.5385 & 0 & 0\\
+						0.4487 & \cdots & 0.8333\\
+						0.9829 & 1.6667 & 2.7778
+						\end{pmatrix}
+						\end{gathered}
+						\begin{equation}
+						\rho(h)=\frac{\gamma(t+h,t)}{\sqrt{Var(X_{t+h})Var(X_t)}}=\frac{\gamma(h)}{\gamma(0)}\mathbb{R}\mathscr{L}
+						\end{equation}
+
+					</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class
+						aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam
+						tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc
+						ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non,
+						bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus.
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In
+						non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.
+					</p>
+					<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor
+						imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet.
+						Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at,
+						elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+
+					<hr class="major" />
+
+					<h2>时间序列的平稳性</h2>
+					<p>首先关于时间序列的平稳性，我们给出序列平稳的两个重要的定义：<br />
+						<b>严平稳定义：</b>任意给定一组时点$\{t_1,t_2,\cdots,t_k\}$和这族时点的任意h的平移时点$\{t_1+h,t_2+h,\cdots,t_k+h\}$，形成两组部分序列$\{X_{t_1},X_{t_2},\cdots,X_{t_k}\}$和$\{X_{t_1+h},X_{t_2+h},\cdots,X_{t_k+h}\}$，都有
+						\[
+						P\{X_{t_1}&ltc_1,X_{t_2}&ltc_2,\cdots,X_{t_k}&ltc_k\}=P\{X_{t_1+h}&ltc_1,X_{t_2+h}&ltc_2,\cdots,X_{t_k+h}&ltc_k\}
+						\]
+						则称此时间序列是严平稳的(Strickly Stationary)。即，如果任意有限维分布具有平移不变性，则时间序列是严平稳的。也可定义为：对$\forall
+						j,\{X_{s+1},X_{s+2},\cdots,X_{s+j}\}$的联合分布与s无关。
+						<br /><br />
+						<b>宽平稳定义：</b>有限方差的时间序列$\{X_t\}$是宽平稳的，若满足以下两点：
+					<ol>
+						<li>均值函数$\mu_t=EX_t=\int xf_t(x)dx$是不依赖于$t$的常数；</li>
+						<li>自协方差函数$\gamma(s,t)$至依赖于时间的间隔$|s-t|$。</li>
+					</ol>
+					宽平稳只对时间序列的一阶矩和二阶矩做要求，通常而言(矩存在)，严平稳意味着宽平稳。
+					</p>
+					<p>
+						<b>相关性的测度：</b>利用随机变量之间的相关性序列不同时点之间的关联，一下两个函数用于测度随机变量不同时点之间的相关程度。<br />
+						自协方差函数：
+						\begin{equation*}
+						\gamma(s,t)=E[(X_s-\mu_s)][(X_t-\mu_t)]
+						\end{equation*}
+						自相关函数
+						\begin{equation*}
+						\rho(s,t)=\frac{\gamma(s,t)}{\sqrt{\gamma(s,s)]\gamma(t,t)}}
+						\end{equation*}
+						ACF可定量表示s时点对t时点做线性预测的性能。对于白噪声而言有
+						\begin{equation*}
+						\gamma_w(s,t)=\left\{\begin{array}{lr}
+						\sigma_w^2&s=t\\
+						0&s\neq t
+						\end{array}\right.
+						\end{equation*}
+						而高斯白噪声可以定义为:
+						\begin{equation*}
+						w_t\sim i.i.d.\,N(0,\sigma_2^2)
+						\end{equation*}
+						(带漂移的)随机游走$X_t=X_{t-1}+v_t$：
+						\begin{equation*}
+						\gamma(s,t)=\min\{s,t\}\sigma_w^2
+						\end{equation*}
+					</p>
+					<p>
+						<b>平稳时间序列的数字特征：</b><br />
+						期望
+						\begin{equation*}
+						E(X_t)=\mu
+						\end{equation*}
+						自协方差
+						\begin{equation*}
+						\gamma(h,0)=\gamma(t+h,t)=E[(X_{t+h}-\mu)(X_t-\mu)]
+						\end{equation*}
+						通常将其记为$\gamma(h)$。当h=0时，自协方差就是方差，平稳时间序列的方差不随时间变化
+						\begin{equation*}
+						Var(X_t)=\gamma(0)---\text{常数}
+						\end{equation*}
+						自相关函数(ACF)
+						\begin{equation*}
+						\rho(h)=\frac{\gamma(t+h,t)}{\sqrt{Var(X_{t+h})Var(X_t)}}=\frac{\gamma(h)}{\gamma(0)}
+						\end{equation*}
+						总结：平稳时间序列的期望和方差都是常数，自协方差和自相关函数是关于时间间隔h的函数。
+					</p>
+					<p>
+						<b>相关性的样本估计:</b>
+						面对一列样本数据序列，这是时间序列的一次实现，我们只能依靠样本数据对相关程度做估计。<br />
+						样本自协方差函数
+						\begin{equation*}
+						\hat{\gamma}(h)=\frac{\sum_{t=1}^{n-h}(x_{t+h}-\bar{x})(x_t-\bar{x})}{n}
+						\end{equation*}
+						需要注意的是，此处的分母为n，而不是n-h，$\bar{x}$是所有样本的均值。<br />
+						样本自相关函数
+						\begin{equation*}
+						\hat{\rho}(h)=\frac{\hat{\gamma(h)}}{\hat{\gamma}(0)}
+						\end{equation*}
+					</p>
+
+					<hr class="major" />
+
+					<h2>平稳化与平滑</h2>
+					<p>
+						对于一个时间数据，我们需要利用平稳化手段抽离掉不平稳的部分，利用乘数的平稳时间序列方法建模。这就需要使用平滑技术去识别趋势部分，季节性部分，可预测周期性部分。
+						以下介绍几种常见的平滑方法
+					</p>
+					<p>
+						<b>移动平均法:</b>
+						用$\{x_t\}$表示观测值，定义时点t上的移动平均值为
+						\begin{equation*}
+						m_t=\sum_{j=-k}^{k}a_jx_{t-j}
+						\end{equation*}
+						$a_j$表示用于平均的权重，满足$a_j=a_{-j}\leq 0$,$\sum_{j=-k}^ka_j=1$。
+						<br />
+						对于该平滑方法，首末端会损失数据。k为平滑参数，k越大，对数据的波动约不敏感。通常用高平滑程度揭示序列的趋势成分，用低平滑程度解释序列的季节和周期成分。对周围点赋予相等的权重
+					</p>
+					<p>
+						<b>核平滑：</b>
+						定义t时点上的核平滑值为
+						\begin{equation*}
+						f_t=\sum_{i=1}^n\omega_t(i)x_i\quad\text{其中}\omega_t(i)=\frac{K(\frac{t-i}{b})}{\sum_{j=1}^nK(\frac{t-i}{b})}
+						\end{equation*}
+						$\omega_t(i)$表示权重。$K()$叫做核函数，常取正态核。b叫窗口，b越大越平滑。不会损失数据。考虑所有点，对邻近的点给予高权重。
+					</p>
+					<p>
+						<b>邻近回归与局部加权回归:</b>邻近回归思想：对于时点t，利用其前后各k/2个观测点做一个线性回归，以在时点t回归线的拟合值作为平滑值。
+						局部加权回归的思想：利用邻近的观测点，但是回归时基于更靠近的点以更高的权重。
+					</p>
+					<p>
+						那么对于一个非平稳时间序列如何转化为平稳的时序呢，以下有常用的方法：
+					</p>
+					<p>
+						<b>去季节性:</b>
+						数量相关的软件都可以做，这些方法尽管常用，但是技术细节不用特别深究。一般去季节的方法有：X12法，X13法，移动平均比率法，Tramo/Seats法。
+					</p>
+					<p>
+						<b>去趋势：</b>用时间解释趋势，近似线性趋势，做一个一元回归
+						\begin{equation*}
+						X_t=\beta_o+\beta_1t+w_t
+						\end{equation*}
+					</p>
+					<p>
+						<b>去周期性：</b>周期性包括固定周期与可预测周期两种，由于固定周期情形比较常见，讨论固定周期。季节性可以视为特殊的周期性，因此，去周期性的方法同样适用于季节调整。正弦预先函数是典型的周期函数，去周期最重要的方法是利用正弦余弦函数对数据做回归解释。由于本质上仍然是回归，可以将趋势行变量(如时间)和周期函数同时作为解释变量，去趋势和去周期一次性完成。
+					</p>
+					<p>
+						<b>自然对数法：</b>一个序列如果方差随着时间有显著的变化，则是非平稳的。这是可以尝试对序列取自然对数，由于对数可以使数据尺度发生很大的变化，原始两个数据差距很大，经过对数化后差距能大大缩小，可以视为同方差。
+					</p>
+					<p>
+						<b>差分法：</b>差分法可以将一些典型的非平稳序列平稳化。例如$X_t=X_{t-1}+v_t$,$X_t=\beta_0+\beta_1t+v_t$等序列过程就可以通过差分平稳化。除了一节差分坑还需要高阶差分，即数据需要经过多次差分才能平稳。差分记号：
+						\begin{equation*}
+						\triangledown^dX_t
+						\end{equation*}
+						表示d阶差分。
+						当d=2时
+						\begin{equation}
+						\triangledown^2X_t=\triangledown(X_t-X_{t-1})=(X_t-X_{t-1})-(X_{t-1}-X_{t-2})
+						\end{equation}
+					</p>
+					<p>
+						证明：
+						\begin{equation*}
+						X_t=\beta_0+\beta_1t+\beta_2t^2+v_t
+						\end{equation*}
+						需要二阶差分才能平稳
+						<br />
+						解：
+						\begin{equation*}
+						\because \triangledown^2X_t=2\beta_2+v_t-2v_{t-1}+v_{t-2}\text{and } v_t\sim i.i.d.N(0,\sigma^2)
+						\end{equation*}
+						\begin{equation*}
+						\therefore EX_t=2\beta_2\text{---constant}
+						\end{equation*}
+						\begin{equation*}
+						\text{and }\gamma(s,t)=E[v_s-2v_{s-1}+v_{s-2}][v_t-2v_{t-1}+v_{t-2}]=
+						\left\{
+						\begin{array}{lr}
+						0&\text{if}|s-v|\leq 3\\
+						f(|s-v|)\sigma^2&\text{if}|s-v|&lt 3 \end{array}\right. \end{equation*} \begin{equation*} \text{which is
+						only depented on |s-t|, not t.} \end{equation*}
+					</p>
+					<p>
+						<b>对数差分法:</b>对数差分法往往具有鲜明的经济意义，它可以表示增长率、收益率。若原始序列是GDP，对数差分就是GDP的增长率；原始序列是CPI，对数差分就是通货膨胀；原始序列是股票价格，对数差分就是股票的收益率。
+					</p>
+					<p>
+						<b>平稳性检验：</b>检验的方法有很多，通常数量软件都可以做。常用单位根检验考察平稳性。单位根的由来以DF检验做解释比较直观；<br \>
+						随机游走$X_t=X_{t-1}+v_t$是不平稳的。则可以回归$X_t=\rho X_{t-1}+v_t$，若检验发现$\rho=1$，则称X有一个单位根。
+						将前式变为$\triangledown X_t=(\rho-1)X_{t-1}+v_t=\delta X_{t-1}+v_t$，等价于检验原假设$H_0:\delta=0$，若拒绝原假设，认为平稳，这是平稳性的单位根检验。
+					</p>
+
+					<hr class="major" />
+
+					<h2>MA</h2>
+					<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+						Pellentesque
+						venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas
+						enim
+						auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat.
+						Pellentesque
+						in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium
+						pulvinar
+						mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit.
+						Pellentesque
+						enim turpis, hendrerit.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis.
+						Class
+						aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+						Etiam
+						tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra.
+						Nunc
+						ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis
+						non,
+						bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus.
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+						egestas. In
+						non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed
+						vehicula.
+					</p>
+
+					<hr class="major" />
+
+					<h2>预测</h2>
+					<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+						Pellentesque
+						venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas
+						enim
+						auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat.
+						Pellentesque
+						in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium
+						pulvinar
+						mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit.
+						Pellentesque
+						enim turpis, hendrerit.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis.
+						Class
+						aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+						Etiam
+						tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra.
+						Nunc
+						ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis
+						non,
+						bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus.
+						Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
+						egestas. In
+						non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed
+						vehicula.
+					</p>
+				</section>
+
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="sidebar">
+			<div class="inner">
+
+				<!-- Search -->
+				<section id="search" class="alt">
+					<form method="post" action="#">
+						<input type="text" name="query" id="query" placeholder="Search" />
+					</form>
+				</section>
+
+				<!-- Menu -->
+				<nav id="menu">
+					<header class="major">
+						<h2>Menu</h2>
+					</header>
+					<ul>
+						<li><a href="index.html">主页</a></li>
+						<li><a href="#">投入产出技术</a></li>
+						<li><a href="#">在研文章</a></li>
+						<li>
+							<span class="opener">经济学</span>
+							<ul>
+								<li><a href="#">国际贸易</a></li>
+								<li><a href="#">微观经济学</a></li>
+								<li><a href="#">宏观经济学</a></li>
+								<li><a href="#">计量经济学</a></li>
+							</ul>
+						</li>
+						<li><a href="#">数学</a></li>
+						<li><a href="#">吉他</a></li>
+						<li>
+							<span class="opener">编程学习</span>
+							<ul>
+								<li><a href="#">LaTeX</a></li>
+								<li><a href="#">Matlab</a></li>
+								<li><a href="#">R</a></li>
+								<li><a href="#">Python</a></li>
+							</ul>
+						</li>
+						<li><a href="#">语言学习</a></li>
+						<li><a href="#">读书笔记</a></li>
+						<li><a href="#">广告</a></li>
+					</ul>
+				</nav>
+
+				<!-- Section -->
+				<section>
+					<header class="major">
+						<h2>Ante interdum</h2>
+					</header>
+					<div class="mini-posts">
+						<article>
+							<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+							<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+						</article>
+						<article>
+							<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+							<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+						</article>
+						<article>
+							<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+							<p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
+						</article>
+					</div>
+					<ul class="actions">
+						<li><a href="#" class="button">More</a></li>
+					</ul>
+				</section>
+
+				<!-- Section -->
+				<section>
+					<header class="major">
+						<h2>Get in touch</h2>
+					</header>
+					<p>该网站仅做为个人博客，分享知识，不用于任何商业用途。如有任何感兴趣的话题或想法欢迎前来投稿，若有发现网页内容存在侵权问题请联系作者及时删除。</p>
+					<ul class="contact">
+						<li class="icon solid fa-envelope"><a href="https://mail.163.com/"
+								target="_blank">zhangcueb@163.com</a></li>
+						<li class="icon solid fa-phone">(+86) 18810136911</li>
+						<li class="icon solid fa-home">北京市丰台区花香张家路口121号<br />
+							首都经济贸易大学</li>
+					</ul>
+				</section>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<p class="copyright">&copy; Please do not copy. All rights reserved. Demo Images: <a
+							href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5
+							UP</a>.</p>
+				</footer>
+
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
